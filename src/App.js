@@ -1,6 +1,8 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
 import firebase from './firebase';
+import Login from './Components/Login';
+import Hero from './Components/Hero';
 
 const App = () => {
 
@@ -72,16 +74,32 @@ const App = () => {
       } else {
         setUser('');
       }
-    })
-  }
+    });
+  };
 
   useEffect(() => {
     authListener();
-  }, [])
+  }, []);
 
   return (
-    <div>
-      hello world!
+    <div className='App'>
+
+      {user ? (
+        <Hero handleLogout={handleLogout} />
+      ) : (
+        <Login
+          email={email}
+          setEmail={setEmail}
+          password={password}
+          setPassword={setPassword}
+          handleLogin={handleLogin}
+          handleSignup={handleSignup}
+          hasAcc={hasAcc}
+          setHasAcc={setHasAcc}
+          emailError={emailError}
+          passwordError={passwordError}
+        />
+      )}
     </div>
   )
 }
