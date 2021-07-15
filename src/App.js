@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
-import firebase from './firebase';
+import fire from './firebase';
 import Login from './Components/Login';
 import Hero from './Components/Hero';
 
@@ -28,7 +28,7 @@ const App = () => {
   // handle login
   const handleLogin = () => {
     clearError();
-    firebase.auth().signInWithEmailAndPassword(email, password)
+    fire.auth().signInWithEmailAndPassword(email, password)
       .catch((err) => {
         switch (err.code) {
           case 'auth/invalid-email':
@@ -46,7 +46,7 @@ const App = () => {
   // handle signup
   const handleSignup = () => {
     clearError();
-    firebase.auth().createUserWithEmailAndPassword(email, password)
+    fire.auth().createUserWithEmailAndPassword(email, password)
       .catch((err) => {
         switch (err.code) {
           case 'auth/email-already-in-use':
@@ -62,12 +62,12 @@ const App = () => {
 
   // handle logout
   const handleLogout = () => {
-    firebase.auth().signOut();
+    fire.auth().signOut();
   };
 
   // listerner to check whether user signup or login
   const authListener = () => {
-    firebase.auth().onAuthStateChanged((user) => {
+    fire.auth().onAuthStateChanged((user) => {
       if (user) {
         clearInput();
         setUser(user);
